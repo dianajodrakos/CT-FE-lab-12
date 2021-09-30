@@ -1,5 +1,16 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
+
+
+const initialValue = {
+  before: [],
+  current: '#FF0000',
+  after: [],
+};
+
+const appReducer = (state, action) => {
+
+};
 
 const useRecord = (init) => {
   const [before, setBefore] = useState([]);
@@ -34,9 +45,11 @@ const useRecord = (init) => {
 function App() {
   const { current, undo, redo, record } = useRecord('#FF0000');
 
+  const [state, dispatch] = useReducer(appReducer, initialValue);
+  
   return (
     <>
-      <button aria-label="undo-button" onC`lick={undo}>undo</button>
+      <button aria-label="undo-button" onClick={undo}>undo</button>
       <button aria-label="redo-button" onClick={redo}>redo</button>
       <input aria-label="color-picker" type="color" value={current} onChange={({ target }) => record(target.value)} />
       <div aria-label="display" style={{ backgroundColor: current, width: '10rem', height: '10rem' }}></div>
